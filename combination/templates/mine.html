@@ -1,0 +1,9 @@
+{% extends  'base.html' %}
+
+{% block content %}
+<p>这里是mine</p>
+{% endblock %}
+
+{% block mine %}
+<a class="navbar-brand" href="{% url 'retailer:mine' %}">个人账户</a>
+{% endblock %}

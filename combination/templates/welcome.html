@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>商帮-新零售</title>
+    <style>
+        a:link,
+        a:visited {
+            text-decoration: none;
+            /*超链接无下划线*/
+        }
+
+        a:hover {
+            text-decoration: none;
+            /*鼠标放上去有下划线*/
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="width: 800px;margin-top: 310px;margin-left: 425px;">
+        <span style="width: 20px;"><a href="{% url 'retailer:login' %}"
+                style="font-size: xx-large;">商家用户</a></span>
+        <span style="width: 20px;margin-left: 150px;">
+            <a href="admin/" style="font-size: xx-large;">管理用户</a></span>
+        <span style="width: 20px;margin-left: 150px;">
+        <a href="{% url 'other:other' %}" style="font-size: xx-large;">其他用户</a></span>
+    </div>
+    </div>
+</body>
+
+</html>

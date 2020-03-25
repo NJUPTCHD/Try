@@ -1,0 +1,215 @@
+{% extends  'base.html' %}
+
+{% block content %}
+    <style>
+		  /* Make the image fully responsive */
+		  .carousel-inner img {
+		      width: 100%;
+		      height: 300px;
+		  }
+    </style>
+    <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
+			<div class="row">
+
+				<!-- 左侧垂直导航栏 -->
+				<div class="col-sm-2" style="background-color: white;height: 400px;">
+					<div style="border-bottom: #7ABAFF solid;">
+						<h4 style=" margin-top: 18px;">导航</h4>
+					</div>
+
+					<ul class="nav flex-column">
+					  <li class="nav-item" style="border-bottom: #7ABAFF solid;">
+					    <a class="nav-link" href="https://cn.bing.com/">商品中心</a>
+					  </li>
+					  <li class="nav-item" style="border-bottom: #7ABAFF solid;">
+					    <a class="nav-link" href="#">资金管理</a>
+					  </li>
+					  <li class="nav-item" style="border-bottom: #7ABAFF solid;">
+					    <a class="nav-link" href="#">订单详情</a>
+					  </li>
+					  <li class="nav-item" style="border-bottom: #7ABAFF solid;">
+					    <a class="nav-link" href="#">账号中心</a>
+					  </li>
+					</ul>
+				</div>
+
+				<!-- 页面主体部分 -->
+				<div class="col-sm-9" style="background-color:#EEEEEE;">
+					<div class="row">
+						<div class="col-8" style="background-color: white;margin-left: 30px;">
+
+							<!-- 轮播 -->
+							<div id="demo" class="carousel slide" data-ride="carousel" style="height: 300px; background-color: #EEEEEE;">
+								<ul class="carousel-indicators">
+								    <li data-target="#demo" data-slide-to="0" class="active"></li>
+								    <li data-target="#demo" data-slide-to="1"></li>
+								    <li data-target="#demo" data-slide-to="2"></li>
+								  </ul>
+
+								  <!-- 轮播图片 -->
+								  <div class="carousel-inner">
+								    <div class="carousel-item active">
+								      <img src="/static/img/IMG_20190817_082102.jpg">
+								    </div>
+								    <div class="carousel-item">
+								      <img src="/static/img/IMG_20190817_092857.jpg">
+								    </div>
+								    <div class="carousel-item">
+								      <img src="/static/img/IMG_20190817_102446.jpg">
+								    </div>
+								  </div>
+
+								  <!-- 左右切换按钮 -->
+								  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+								    <span class="carousel-control-prev-icon"></span>
+								  </a>
+								  <a class="carousel-control-next" href="#demo" data-slide="next">
+								    <span class="carousel-control-next-icon"></span>
+								  </a>
+							</div>
+							<!-- 商品展示 -->
+							<div class="row">
+								<h5 style="color: #49A9EE;margin-top: 20px;margin-left: 20px;">已上架商品列表</h5>
+								<table class="table table-hover">
+								    <thead>
+								      <tr>
+{#										<th>序号</th>#}
+								        <th>商品名称</th>
+								        <th>上架时间</th>
+								        <th>单价</th>
+								      </tr>
+								    </thead>
+								    <tbody>
+									<!-- Python循环语句标签 -->
+                                    {% for prodect in prodects %}
+
+                                        {% if prodect.prodect_isdelete == 0 %}
+								            <tr>
+								            <td>{{prodect.pruduct_name}}</td>
+								            <td>{{prodect.prodect_date}}</td>
+								            <td>{{prodect.pruduct_price}}</td>
+								            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+								    </tbody>
+								  </table>
+							</div>
+
+							<div id="Histogram"style="width: 100%;height: 300px;"></div>
+							<div id="line"style="width: 100%;height: 300px;"></div>
+						</div>
+
+						<div class="col-sm-3" style="background-color: white;height: 400px;margin-left: 30px;">
+							<div class="row" style="margin-top: 10px;">
+								<div class="col-sm-3">
+									<img src="/static/img/IMG_20190817_092857.jpg" class="rounded-circle" width="60px" height="60px">
+								</div>
+								<div class="col-sm-7" style="margin-left: 20px;margin-top: 5px;">
+									<div>
+										<h5>{{ retailerName }}</h5>
+										<p>{{ retailerPhone }}</p>
+									</div>
+
+								</div>
+							</div>
+							<div>
+								<table class="table">
+								    <thead>
+								      <tr>
+								        <th style="color:#0289FF;">公告消息</th>
+								      </tr>
+								    </thead>
+								    </tbody>
+								</table>
+								<ul class="list-group">
+								    <li class="list-group-item list-group-item-success">
+									<a href="#">公告1</a>
+									</li>
+								    <li class="list-group-item list-group-item-info">
+									<a href="#">公告2</a>
+									</li>
+								    <li class="list-group-item list-group-item-warning">
+									<a href="#">公告3</a>
+									</li>
+								    <li class="list-group-item list-group-item-dark">
+									<a href="#">了解更多</a>
+									</li>
+								  </ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+	<script type="text/javascript">
+	    // 基于准备好的dom，初始化echarts实例
+	    var myChart = echarts.init(document.getElementById('Histogram'));
+	    // 指定图表的配置项和数据
+	    var option = {
+	        title: {
+	            text: '各类商品销量柱状图',
+				x: 'center',
+				y: 'top',
+	        },
+	        tooltip: {},
+	        xAxis: {
+	            data:{{ pname|safe }},
+	        },
+	        yAxis: {},
+	        series: [{
+	            name: '销量',
+	            type: 'bar',
+	            data: {{ psales|safe }},
+				itemStyle: {
+				            normal: {
+				　　　　　　　　//这里是重点
+				                color: function(params) {
+				                	//注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
+				                    var colorList = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83', '#ca8622'];
+				                    return colorList[params.dataIndex]
+				                }
+				            }
+				        }
+	        }]
+	    };
+	    // 使用刚指定的配置项和数据显示图表。
+	    myChart.setOption(option);
+	</script>
+
+	<script type="text/javascript">
+	    // 基于准备好的dom，初始化echarts实例
+	    var myChart = echarts.init(document.getElementById('line'));
+
+	    // 指定图表的配置项和数据
+	    var option = {
+	        title: {
+	            text: '一周之内总销售金额折线图',
+				x: 'center',
+				y: 'top',
+	        },
+	        tooltip: {},
+	        legend: {
+	            data:['销量/元']
+	        },
+	        xAxis: {
+	            data: {{ dates|safe }}
+	        },
+	        yAxis: {},
+	        series: [{
+	            name: '销量',
+	            type: 'line',
+	            data: {{ amount|safe }}
+	        }]
+	    };
+
+	    // 使用刚指定的配置项和数据显示图表。
+	    myChart.setOption(option);
+	</script>
+{% endblock %}
+
+{% block index %}
+<a class="navbar-brand" href="{% url 'retailer:index' %}">首页</a>
+{% endblock %}

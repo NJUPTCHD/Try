@@ -1,0 +1,120 @@
+{% extends  'base.html' %}
+
+{% block content %}
+{#<p>这里是上传产品测试-UploadProductTest</p>#}
+<form method="post" action="{% url 'retailer:product' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <ul>
+        <li>
+            <label>商品名:</label>
+            <input type="text" name="productname" id="productname">
+        </li>
+        <li>
+            <label>商品分类:</label>
+            <input type="text" name="producttype" id="producttype">
+        </li>
+        <li>
+            <label>单价:</label>
+            <input type="text" name="productprice" id="productprice">
+        </li>
+        <li>
+            <label>描述:</label>
+            <input type="text" name="productdescription" id="productdescription">
+        </li>
+        <li>
+            <label>商品图片:</label>
+            <input type="file" name="productimage" id="productimage">
+        </li>
+        <li class="">
+            <input type="checkbox" name="allow" id="allow" checked="checked">
+            <label>同意协议</label>
+        </li>
+        <li class="">
+            <input type="submit" value="上传">
+        </li>
+{#        <span>{{ info }}</span>#}
+{#        <li>#}
+{#            <label>输入下架商品名称</label>#}
+{#            <input type="text" id="delete" name="delete" placeholder="名称">#}
+{#        </li>#}
+{#        <li>#}
+{#            <input type="submit" value="下架">#}
+{#        </li>#}
+    </ul>
+</form>
+
+<h4>下架商品</h4>
+<form method="post" action="{% url 'retailer:delete' %}" enctype="multipart/form-data">
+{% csrf_token %}
+    <ul>
+        <li>
+            <label>输入下架商品名称</label>
+            <input type="text" id="delete" name="delete" placeholder="名称">
+        </li>
+        <li>
+            <input type="submit" value="下架">
+        </li>
+    </ul>
+</form>
+
+{#<h4>修改商品信息</h4>#}
+{#<form method="post" action="{% url 'retailer:change' %}" enctype="multipart/form-data">#}
+{#{% csrf_token %}#}
+{#    <ul>#}
+{#        <li>#}
+{#            <label>输入代查找商品的名称</label>#}
+{#            <input type="text" id="result" name="result">#}
+{#        </li>#}
+{#        <li>#}
+{#            <input type="submit" value="搜索">#}
+{#        </li>#}
+{#    </ul>#}
+{#</form>#}
+
+
+{#<div>#}
+{#    <table class="table table-hover">#}
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>商品ID</th>#}
+{#                <th>商品名称</th>#}
+{#                <th>商品图片</th>#}
+{#                <th>商品描述</th>#}
+{#                <th>商品价格</th>#}
+{#            </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        <tr>#}
+{#            <th>{{ resultId }}</th>#}
+{#            <th>{{ resultName }}</th>#}
+{#            <th>{{ resultImg }}</th>#}
+{#            <th>{{ resultDiscription }}</th>#}
+{#            <th>{{ resultPrice }}</th>#}
+{#        </tr>#}
+{#        </tbody>#}
+{#    </table>#}
+{#</div>#}
+
+{#<h6>搜索结果</h6>#}
+{#<form method="post" action="product.html" enctype="multipart/form-data">#}
+{#{% csrf_token %}#}
+{#    <ul>#}
+{#        <li>#}
+{#            <label>商品名称</label>#}
+{#            <input type="text" name="newname" value="{{ newName }}">#}
+{#        </li>#}
+{#        <li>#}
+{#            <label>商品价格</label>#}
+{#            <input type="number" name="newprice" value="{{ newPrice }}">#}
+{#        </li>#}
+{#        <li>#}
+{#            <input type="submit" value="提交">#}
+{#        </li>#}
+{#    </ul>#}
+{#</form>#}
+
+{% endblock %}
+
+{% block product %}
+<a class="navbar-brand" href="{% url 'retailer:product' %}">产品中心</a>
+{% endblock %}

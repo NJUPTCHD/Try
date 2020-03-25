@@ -1,0 +1,9 @@
+{% extends  'base.html' %}
+
+{% block content %}
+<p>这里是订单详情</p>
+{% endblock %}
+
+{% block order %}
+<a class="navbar-brand" href="{% url 'retailer:order' %}">订单详情</a>
+{% endblock %}
