@@ -23,10 +23,12 @@ def login( request ):
             user = users.first()# 获取用户名相同的model的信息
             if check_password(password,user.user_password):# 哈希解密验证密码
                 request.session['user_id'] = user.id  # 在session里边存储了当前登录用户的唯一标识id  其实这段的session我还没搞透彻  今晚再搞
-                return redirect(reverse('retailer:mine'))
+                request.session['user_name'] = user.user_name
+                request.session['user_phone'] = user.user_phone
+                # return redirect(reverse('retailer:mine'))
+                return render(request,'index.html')
     #登陆失败的提示我还没做  目前是点击登录不跳转的retailer:mine即为登陆失败
     return  redirect(reverse('retailer:login'))
-
 
 def register( request ):
     data = {
@@ -52,10 +54,8 @@ def register( request ):
         return render(request,"login.html",context = data)
     # return render(request,'register.html',context = data)
 
-
 def forget( request ):
     return HttpResponse("你已进入\"忘记密码\"界面")
-
 
 def index( request ):
     # data = {
@@ -63,7 +63,8 @@ def index( request ):
     #     # "status":"登录状态",
     # }
     # return render(request,"index.html",context = data)
-    prodectList = Products.objects.all()
+    # prodectList = Products.objects.all()
+    prodectList = Products.objects.filter(pruduct_keeper=request.session.get('user_name'))
     pruduct_name = list(Products.objects.values_list("pruduct_name",flat=True))
     # Pname = list(Products.objects.filter().values_list())
     prodect_sales = list(Products.objects.values_list("prodect_sales",flat=True))
